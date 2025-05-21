@@ -24,7 +24,7 @@ fs.readFile('./poem.txt', 'utf-8',(err, data) => {
     
     console.log(data);
     fs.readFile('./aforismo.txt', 'utf-8', function (err, data1) {
-        fs.writeFile('./long-text.txt', `${data}\n${data1}`, (err) => {
+        fs.writeFile('./long-text.txt', `${data}\n${data1} \n created at: ${Date.now()}`, (err) => {
             console.log('The file has been written :D');
             console.log(data1);
             
