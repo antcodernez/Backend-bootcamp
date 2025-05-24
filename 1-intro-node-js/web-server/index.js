@@ -20,7 +20,7 @@ const pathName = {
   },
   '/api': (res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(data);
+    res.end(productsObject);
   },
   '/': (res) => {
     res.writeHead(200, { 
@@ -38,6 +38,7 @@ const server = http.createServer((req, res) => {
   if (page) {
     page(res);
   } else {
+    // I need to define the http status code and the header before to send the response
     res.writeHead(404, { 
       'Content-Type': 'text/html',
       'secret-message': 'No este molestando mijo deje mamar, no hay nada, lalalalal'
