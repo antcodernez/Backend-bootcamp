@@ -44,6 +44,6 @@ const server = http.createServer((req, res) => {
 });
 
 // Iniciar el servidor
-server.listen(9222, '127.0.0.1', () => {
-  console.log("I'm alive bitch!! xd");
+server.listen(9222, 'localhost', () => {
+  console.log("I'm alive bitch!! xd http://localhost:9222");
 });
