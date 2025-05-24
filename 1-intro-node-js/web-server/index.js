@@ -38,7 +38,10 @@ const server = http.createServer((req, res) => {
   if (page) {
     page(res);
   } else {
-    res.writeHead(404, { 'Content-Type': 'text/html' });
+    res.writeHead(404, { 
+      'Content-Type': 'text/html',
+      'secret-message': 'No este molestando mijo deje mamar, no hay nada, lalalalal'
+     });
     res.end('<h1>404 Not Found</h1>');
   }
 });
