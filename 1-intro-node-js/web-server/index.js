@@ -20,7 +20,7 @@ const pathName = {
   },
   '/api': (res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(productsObject);
+    res.end(JSON.stringify(productsObject));
   },
   '/': (res) => {
     res.writeHead(200, { 
