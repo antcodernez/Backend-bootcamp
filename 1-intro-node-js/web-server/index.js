@@ -14,7 +14,7 @@ const pathName = {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('Page about overview');
   },
-  '/product': (res) => {
+  '/product?id': (res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('Im Juan');
   },
