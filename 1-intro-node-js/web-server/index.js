@@ -11,7 +11,7 @@ const replaceTemplate = (template, element) => {
   output = output.replace(/{%IMAGE%}/g, element.image);
   output = output.replace(/{%FROM%}/g, element.from);
   output = output.replace(/{%PRICE%}/g, element.price);
-  output = output.replace(/{%NUTRIENTS%}/g, ...element.nutrients);
+  output = output.replace(/{%NUTRIENTS%}/g, element.nutrients.join(' '));
   output = output.replace(/{%QUANTITY%}/g, element.quantity);
   output = output.replace(/{%DESCRIPTION%}/g, element.description);
   output = output.replace(/{%ID%}/g, element.ID);
@@ -20,7 +20,7 @@ const replaceTemplate = (template, element) => {
     output = output.replace(/{%NOT_ORGANIC%}/g, 'not-organic');
   }
 
-  return output
+  return output;
 }
 
 // read templates
@@ -33,7 +33,7 @@ const productsObject = JSON.parse(data);
 
 // Tabla de rutas (lookup table)
 const pathName = {
-  '/overview': (res) => {
+  '/overview': (req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/html' });
 
     const cardsHtml = productsObject.map((element) => replaceTemplate(templateCard, element)).join('') // .join('') convierte un array de strings en un solo string concatenado, sin separadores.
@@ -42,9 +42,13 @@ const pathName = {
 
     res.end(ouput);
   },
-  '/product': (res) => {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Im Juan');
+  '/product': (req, res) => {
+    const { query } = url.parse(req.url, true);
+    const product = productsObject.find(element => element.ID === Number(query.id));
+    const productPage = replaceTemplate(templateProduct, product);
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+
+    res.end(productPage);
   },
   '/api': (res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -61,10 +65,16 @@ const pathName = {
 
 // Crear el servidor
 const server = http.createServer((req, res) => {
-  const page = pathName[req.url]; // Busca la ruta en el objeto
+  // console.log(req.url)
+  // const parsedUrl = url.parse(req.url, true)
+  // console.log(parsedUrl.query);
+  
+  const { query, pathname: nameOfURl } = url.parse(req.url, true);
+  
+  const page = pathName[nameOfURl]; // Busca la ruta en el objeto
   
   if (page) {
-    page(res);
+    page(req, res);
   } else {
     // I need to define the http status code and the header before to send the response
     res.writeHead(404, { 
