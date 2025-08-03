@@ -2,7 +2,10 @@
 const http = require('http');
 const url = require('url');
 const fs = require('fs');
+
 const { replaceTemplate } = require('./modules/renderFunction');
+
+const slugify = require("slugify");
 
 // Lee el archivo JSON correctamente
 const data = fs.readFileSync(`${__dirname}/dev-data/fruits.json`, 'utf-8');
@@ -46,6 +49,10 @@ const pathName = {
     res.end(templateOverview);
   },
 };
+
+// Using sluggy
+
+console.log(slugify("Fresh WEED", { lower: true } )); 
 
 // Crear el servidor
 const server = http.createServer((req, res) => {
