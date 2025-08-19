@@ -5,7 +5,7 @@ fs.readFile(`${__dirname}/cat.txt`, (err, data) => {
 
     fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${data}`, {
         headers: {
-            "x-api-key": "live_uNoODOh2SVfDIrGd19uOclwkvWugLph8TiWcCAE7al1ddHf8NQUhU3t2UZUCeN6J"
+            "x-api-key": ""
         }
     })
     .then((res) => {
