@@ -2,8 +2,30 @@ const fs = require("fs").promises;
 
 const { config } = require("../1-intro-node-js/config/");
 
+fs.readFile(`${__dirname}/cat.txt`, "utf-8")
+  .then(breedId => {
+    return fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId.trim()}`, {
+      headers: { "x-api-key": config.apiKeyCats }
+    });
+  })
+  .then(res => res.json())
+  .then(json => {
+    console.log(...json);
 
-(async () => {
+    if (!json || json.length === 0) {
+      throw new Error("Breed of cat not found");
+    }
+
+    return fs.writeFile("cat-image.txt", json[0].url);
+  })
+  .then(() => {
+    console.log("URL de la imagen guardada en cat-image.txt");
+  })
+  .catch(err => {
+    console.error("Error:", err);
+  });
+
+/* (async () => {
   try {
     // leer el archivo con await (promesa)
     const data = await fs.readFile(`${__dirname}/cat.txt`, "utf-8");
@@ -13,7 +35,7 @@ const { config } = require("../1-intro-node-js/config/");
     // fetch devuelve promesa
     const res = await fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${data}`, {
       headers: { 
-            "x-api-key": "live_uNoODOh2SVfDIrGd19uOclwkvWugLph8TiWcCAE7al1ddHf8NQUhU3t2UZUCeN6J" 
+            "x-api-key": config.apiKeyCats 
         }
     });
 
@@ -33,3 +55,4 @@ const { config } = require("../1-intro-node-js/config/");
     console.error("Error:", err);
   }
 })();
+ */
