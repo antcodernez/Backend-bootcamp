@@ -2,7 +2,10 @@ const fs = require("fs").promises;
 
 const { config } = require("../1-intro-node-js/config/");
 
-fs.readFile(`${__dirname}/cat.txt`, "utf-8")
+
+// Using Promises
+
+/* fs.readFile(`${__dirname}/cat.txt`, "utf-8")
   .then(breedId => {
     return fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId.trim()}`, {
       headers: { "x-api-key": config.apiKeyCats }
@@ -23,14 +26,16 @@ fs.readFile(`${__dirname}/cat.txt`, "utf-8")
   })
   .catch(err => {
     console.error("Error:", err);
-  });
+  }); */
 
-/* (async () => {
+
+// Using async/await
+
+(async () => {
   try {
     // leer el archivo con await (promesa)
     const data = await fs.readFile(`${__dirname}/cat.txt`, "utf-8");
     console.log(`Cat breed id: ${data}`);
-    console.log(config);
     
     // fetch devuelve promesa
     const res = await fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${data}`, {
@@ -55,4 +60,3 @@ fs.readFile(`${__dirname}/cat.txt`, "utf-8")
     console.error("Error:", err);
   }
 })();
- */
