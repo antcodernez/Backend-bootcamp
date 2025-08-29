@@ -1,0 +1,14 @@
+{
+  "name": "4-natours",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "run": "node app.js"
+  },
+  "keywords": [],
+  "author": "Antonio Estrada",
+  "license": "ISC",
+  "type": "commonjs"
+}
